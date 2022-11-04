@@ -14,10 +14,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var notifiHelper;
   @override
-  void initstate() {
+  void initState() {
     super.initState();
     notifiHelper=NotifyHelper();
-    notifiHelper.initializeNotification();
+    notifiHelper.initalizeNotification();
     notifiHelper.requestIOSPermissions();
   }
 
