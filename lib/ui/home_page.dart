@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:untitled/services/notification_services.dart';
 
 import '../services/theme_services.dart';
 
@@ -10,6 +12,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var notifiHelper;
+  @override
+  void initstate() {
+    super.initState();
+    notifiHelper=NotifyHelper();
+    notifiHelper.initializeNotification();
+    notifiHelper.requestIOSPermissions();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +38,12 @@ class _HomePageState extends State<HomePage> {
       leading: GestureDetector(
         onTap: (){
           ThemeService().switchTheme();
+          notifiHelper.displayNotification(
+            title: "Theme Changed",
+            body: Get.isDarkMode?"Activated Dark Theme":"Activated Light Theme"
+          );
+
+          notifiHelper.scheduledNotification();
         },
         child: Icon(Icons.nightlight_round,size: 20,),
       ),
