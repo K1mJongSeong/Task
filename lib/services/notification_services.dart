@@ -35,8 +35,8 @@ class NotifyHelper{
           android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
       await flutterLocalNotificationsPlugin.show(
         0,
-        "asd",
-        "body",
+        title,
+        body,
         platformChannelSpecifics,
         payload: 'Default_Sound',
       );
@@ -75,10 +75,6 @@ class NotifyHelper{
       Get.to(()=>Container(color: Colors.white,));
     }
 
-    // Future onDidReceiveLocalNotification(
-    //     int id, String? title, String? body, String? payload) async{
-    //   Get.dialog(Text("Welcome to flutter"));
-    // }
     Future onDidReceiveLocalNotification(
         int id, String? title, String? body, String? payload) async {
       // display a dialog with the notification details, tap ok to go to another page
