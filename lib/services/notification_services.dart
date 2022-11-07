@@ -10,8 +10,8 @@ class NotifyHelper{
 
     initializeNotification() async {
       tz.initializeTimeZones();
-      final IOSInitializationSettings initializationSettingsIOS =
-      IOSInitializationSettings(
+      final IOSInitializationSettings   initializationSettingsIOS =
+      IOSInitializationSettings (
           requestSoundPermission: false,
           requestBadgePermission: false,
           requestAlertPermission: false,
@@ -25,20 +25,36 @@ class NotifyHelper{
       await flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: selectNotification);
     }
 
+    // displayNotification({required String title, required String body}) async {
+    //   print("doing test");
+    //   var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+    //       'your channel id', 'your channel name',channelDescription: 'your channel description',
+    //       importance: Importance.max, priority: Priority.high);
+    //   var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    //   var platformChannelSpecifics = new NotificationDetails(
+    //       android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
+    //   await flutterLocalNotificationsPlugin.show(
+    //     0,
+    //     title,
+    //     body,
+    //     platformChannelSpecifics,
+    //     payload: 'Default_Sound',
+    //   );
+    // }
     displayNotification({required String title, required String body}) async {
       print("doing test");
       var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-          'your channel id', 'your channel name','your channel description',
+          'your channel id', 'your channel name',channelDescription: 'your channel description',
           importance: Importance.max, priority: Priority.high);
       var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
       var platformChannelSpecifics = new NotificationDetails(
           android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
       await flutterLocalNotificationsPlugin.show(
         0,
-        title,
-        body,
+        'You change your theme',
+        'You changed your theme back !',
         platformChannelSpecifics,
-        payload: 'Default_Sound',
+        payload: 'It could be anything you pass',
       );
     }
 
@@ -50,7 +66,7 @@ class NotifyHelper{
           tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
           const NotificationDetails(
               android: AndroidNotificationDetails('your channel id',
-                  'your channel name','asd')),
+                  'your channel name',channelDescription: 'asd')),
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime);

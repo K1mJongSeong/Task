@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:untitled/services/notification_services.dart';
 
 import '../services/theme_services.dart';
@@ -26,15 +27,24 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: _appBar(),
       body: Column(
-    children: const [
-      Text('Theme Datazzzz',
-    style: TextStyle(fontSize: 30),)
+    children: [
+      Row(
+        children: [
+          Column(
+            children: [
+              Text(DateFormat.yMMMMd().format(DateTime.now())),
+            ],
+          )
+        ],
+      )
       ],),
     );
   }
 
   _appBar(){
     return AppBar(
+      elevation: 0,
+      backgroundColor: context.theme.backgroundColor,
       leading: GestureDetector(
         onTap: (){
           ThemeService().switchTheme();
@@ -45,10 +55,17 @@ class _HomePageState extends State<HomePage> {
 
           notifiHelper.scheduledNotification();
         },
-        child: Icon(Icons.nightlight_round,size: 20,),
+        child: Icon(Get.isDarkMode ?Icons.wb_sunny_outlined:Icons.nightlight_round,
+          size: 20,
+          color: Get.isDarkMode ? Colors.white:Colors.black,
+        ),
       ),
       actions: [
-        Icon(Icons.person,size: 20,),
+        CircleAvatar(
+          backgroundImage: AssetImage(
+            "images/profile.png"
+          ),
+        ),
         SizedBox(width: 20,)
       ],
     );
