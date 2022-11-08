@@ -1,6 +1,6 @@
 # untitled
 
-A new Flutter project.
+This is a business notification app that helps you handle your work.
 
 ## Getting Started
 
