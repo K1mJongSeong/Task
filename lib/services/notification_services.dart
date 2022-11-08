@@ -19,28 +19,12 @@ class NotifyHelper{
       );
 
       final AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings("appicon");
+      AndroidInitializationSettings('app_icon');
       
       final InitializationSettings initializationSettings = InitializationSettings(iOS: initializationSettingsIOS,android: initializationSettingsAndroid);
       await flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: selectNotification);
     }
 
-    // displayNotification({required String title, required String body}) async {
-    //   print("doing test");
-    //   var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-    //       'your channel id', 'your channel name',channelDescription: 'your channel description',
-    //       importance: Importance.max, priority: Priority.high);
-    //   var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    //   var platformChannelSpecifics = new NotificationDetails(
-    //       android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
-    //   await flutterLocalNotificationsPlugin.show(
-    //     0,
-    //     title,
-    //     body,
-    //     platformChannelSpecifics,
-    //     payload: 'Default_Sound',
-    //   );
-    // }
     displayNotification({required String title, required String body}) async {
       print("doing test");
       var androidPlatformChannelSpecifics = new AndroidNotificationDetails(

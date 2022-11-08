@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:untitled/services/notification_services.dart';
+import 'package:untitled/ui/add_task_bar.dart';
 import 'package:untitled/ui/theme.dart';
 import 'package:untitled/ui/widget/button.dart';
-
 import '../services/theme_services.dart';
 
 class HomePage extends StatefulWidget {
@@ -34,46 +34,50 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           _appTaskBar(),
-          Container(
-            margin: const EdgeInsets.only(top: 20,left: 20),
-            child: DatePicker(
-              DateTime.now(),
-              height: 100,
-              width: 80,
-              initialSelectedDate: DateTime.now(),
-              selectedTextColor: bluishClr,
-              selectionColor: Colors.white,
-              dateTextStyle: GoogleFonts.lato(
-                textStyle: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey
-                ),
-              ),
-              dayTextStyle: GoogleFonts.lato(
-                textStyle: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey
-                ),
-              ),
-              monthTextStyle: GoogleFonts.lato(
-                textStyle: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey
-                ),
-              ),
-              onDateChange: (date){
-                _selectedDate=date;
-              },
-            ),
-          )
-
+          _addDateBar(),
         ],
       ),
     );
   }
+
+  _addDateBar(){
+    return Container(
+      margin: const EdgeInsets.only(top: 20,left: 20),
+      child: DatePicker(
+        DateTime.now(),
+        height: 100,
+        width: 80,
+        initialSelectedDate: DateTime.now(),
+        selectedTextColor: bluishClr,
+        selectionColor: Colors.white,
+        dateTextStyle: GoogleFonts.lato(
+          textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey
+          ),
+        ),
+        dayTextStyle: GoogleFonts.lato(
+          textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey
+          ),
+        ),
+        monthTextStyle: GoogleFonts.lato(
+          textStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey
+          ),
+        ),
+        onDateChange: (date){
+          _selectedDate=date;
+        },
+      ),
+    );
+  }
+
   _appTaskBar() {
     return Container(
       margin: const EdgeInsets.only(left: 20,right: 20,top: 10),
@@ -84,7 +88,7 @@ class _HomePageState extends State<HomePage> {
             style: subHeadingStyle,),
           Text("Today",
             style: headingStyle,),
-          MyButton(label: "+ Add Task", onTap: ()=>null)
+          MyButton(label: "+ Add Task", onTap: ()=>Get.to(AddTaskPage()))
         ],
       ),
     );
@@ -98,8 +102,8 @@ class _HomePageState extends State<HomePage> {
         onTap: (){
           ThemeService().switchTheme();
           notifiHelper.displayNotification(
-            title: "Theme Changed",
-            body: Get.isDarkMode?"Activated Dark Theme":"Activated Light Theme"
+              title: "Theme Changed",
+              body: Get.isDarkMode?"Activated Dark Theme":"Activated Light Theme"
           );
 
           notifiHelper.scheduledNotification();
@@ -112,7 +116,7 @@ class _HomePageState extends State<HomePage> {
       actions: [
         CircleAvatar(
           backgroundImage: AssetImage(
-            "images/profile.png"
+              "images/profile.png"
           ),
         ),
         SizedBox(width: 20,)
