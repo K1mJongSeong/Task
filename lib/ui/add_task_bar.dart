@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled/ui/theme.dart';
+import 'package:untitled/ui/widget/input_field.dart';
 class AddTaskPage extends StatelessWidget {
   const AddTaskPage({Key? key}) : super(key: key);
 
@@ -8,7 +10,17 @@ class AddTaskPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.theme.backgroundColor,
       appBar: _appBar(context),
-      body: Container(),
+      body: Container(
+        padding: const EdgeInsets.only(left: 20,right: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Text('Add Task',style: headingStyle,),
+              MyInputField(title: "Title", hint: "Enter your title"),
+            ],
+          ),
+        ),
+      ),
     );
   }
   _appBar(BuildContext context){

@@ -79,18 +79,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   _appTaskBar() {
-    return Container(
-      margin: const EdgeInsets.only(left: 20,right: 20,top: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(DateFormat.yMMMMd().format(DateTime.now()),
-            style: subHeadingStyle,),
-          Text("Today",
-            style: headingStyle,),
-          MyButton(label: "+ Add Task", onTap: ()=>Get.to(AddTaskPage()))
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(left: 20,right: 20,top: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(DateFormat.yMMMMd().format(DateTime.now()),
+                style: subHeadingStyle,),
+              Text("Today",
+                style: headingStyle,),
+            ],
+          ),
+        ),
+        MyButton(label: "+ Add Task", onTap: ()=>Get.to(AddTaskPage())),
+      ],
     );
   }
 
