@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:untitled/controllers/task_comtroller.dart';
+import 'package:untitled/models/task.dart';
 import 'package:untitled/ui/theme.dart';
 import 'package:untitled/ui/widget/button.dart';
 import 'package:untitled/ui/widget/input_field.dart';
@@ -13,6 +15,9 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
+  final TaskController _taskController = Get.put(TaskController());
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _noteController = TextEditingController();
   DateTime  _selectedDate = DateTime.now();
   String _endTime = "9:30 PM";
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
@@ -43,8 +48,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Add Task',style: headingStyle,),
-              MyInputField(title: "Title", hint: "Enter your title"),
-              MyInputField(title: "Note", hint: "Enter your note"),
+              MyInputField(title: "Title", hint: "Enter your title",controller: _titleController,),
+              MyInputField(title: "Note", hint: "Enter your note",controller: _noteController,),
               MyInputField(title: "Date", hint: DateFormat.yMd().format(_selectedDate),
                   widget: IconButton(
                     icon: Icon(Icons.calendar_today_outlined,
@@ -136,7 +141,7 @@ _getTimeFromUser(isStartTime: true);
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _colorPallete(),
-                  MyButton(label:"Create Task", onTap:()=>null)
+                  MyButton(label:"Create Task", onTap:()=>_validateDate())
                 ],
               )
             ],
@@ -144,6 +149,37 @@ _getTimeFromUser(isStartTime: true);
         ),
       ),
     );
+  }
+
+  _validateDate(){
+    if(_titleController.text.isNotEmpty&&_noteController.text.isNotEmpty){
+      //DB추가
+
+      Get.back();
+    }else if(_titleController.text.isEmpty || _noteController.text.isEmpty){
+      Get.snackbar("Required", "All fields are required !",
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.white,
+      icon: Icon(Icons.warning_amber_rounded),
+      );
+    }
+  }
+
+  _addTaskTodb()async{
+    int value = await _taskController.addTask(
+        task: Task(
+          note: _noteController.text,
+          title: _titleController.text,
+          date: DateFormat.yMd().format(_selectedDate),
+          startTime: _startTime,
+          endTime: _endTime,
+          remind: _selectedRemind,
+          repeat: _selectedRepeat,
+          color: _selectedColor,
+          isCompleted: 0,
+        )
+    );
+    print("My id is "+"$value");
   }
 
   _colorPallete(){
