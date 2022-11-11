@@ -27,7 +27,7 @@ class TaskTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    task?.title ?? "",
+                    task?.title ?? "",//제목(title)을 null-check해주고 있다면 데이터 뿌림 없다면 ""
                     style: GoogleFonts.lato(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

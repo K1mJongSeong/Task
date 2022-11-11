@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:untitled/controllers/task_comtroller.dart';
+import 'package:untitled/models/task.dart';
 import 'package:untitled/services/notification_services.dart';
 import 'package:untitled/ui/add_task_bar.dart';
 import 'package:untitled/ui/theme.dart';
@@ -65,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            print("터치");
+                            _showBottomSheet(context, _taskController.taskList[index]);
                           },
                           child: TaskTile(_taskController.taskList[index]),
                         )
@@ -75,6 +76,30 @@ class _HomePageState extends State<HomePage> {
                 ));
           });
     }));
+  }
+
+  _showBottomSheet(BuildContext context, Task task){
+    Get.bottomSheet(
+      Container(
+        padding: EdgeInsets.only(top: 4),
+        height: task.isCompleted==1?
+            MediaQuery.of(context).size.height*0.24: //디바이스 크기에 따라 사이즈조정.
+            MediaQuery.of(context).size.height*0.32,
+            color: Get.isDarkMode?darkGreyClr:Colors.white,
+        child: Column(
+          children: [
+            Container(
+              height: 6,
+              width: 120,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Get.isDarkMode?Colors.grey[600]:Colors.grey[300]
+              ),
+            )
+          ],
+        ),
+      )
+    );
   }
 
   _addDateBar() {
