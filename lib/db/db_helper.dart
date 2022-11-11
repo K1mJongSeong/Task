@@ -16,7 +16,7 @@ class DBHelper{
        version: _version,
        onCreate: (db,version){
          print("creating a new one");
-         return db.execute("CREATE TALBE $_tableName("
+         return db.execute("CREATE TABLE $_tableName("
          "id INTEGER PRIMARY KEY AUTOINCREMENT, "
          "title STRING, note TEXT, date STRING, "
          "startTime STRING, endTime STRING, "

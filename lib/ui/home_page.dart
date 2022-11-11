@@ -1,5 +1,6 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +9,7 @@ import 'package:untitled/services/notification_services.dart';
 import 'package:untitled/ui/add_task_bar.dart';
 import 'package:untitled/ui/theme.dart';
 import 'package:untitled/ui/widget/button.dart';
+import 'package:untitled/ui/widget/task_tile.dart';
 import '../services/theme_services.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,7 +41,9 @@ class _HomePageState extends State<HomePage> {
         children: [
           _appTaskBar(),
           _addDateBar(),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           _showTasks(),
         ],
       ),
@@ -49,24 +53,27 @@ class _HomePageState extends State<HomePage> {
   _showTasks() {
     return Expanded(child: Obx(() {
       return ListView.builder(
-        itemCount: _taskController.taskList.length,
+          itemCount: _taskController.taskList.length,
           itemBuilder: (_, index) {
-          print(_taskController.taskList.length);
-        return GestureDetector(
-          onTap: (){
-            _taskController.delete(_taskController.taskList[index]);
-          },
-          child: Container(
-            width: 100,
-            height: 50,
-            color: Colors.green,
-            margin: const EdgeInsets.only(bottom: 10),
-            child: Text(
-              _taskController.taskList[index].title.toString()
-            ),
-          ),
-        );
-      });
+            print(_taskController.taskList.length);
+
+            return AnimationConfiguration.staggeredList(
+                position: index,
+                child: SlideAnimation(
+                  child: FadeInAnimation(
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            print("터치");
+                          },
+                          child: TaskTile(_taskController.taskList[index]),
+                        )
+                      ],
+                    ),
+                  ),
+                ));
+          });
     }));
   }
 
@@ -119,11 +126,14 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        MyButton(label: "+ Add Task", onTap: () async{
-          await Get.to(()=>AddTaskPage());
-          _taskController.getTasks();
-        },
-        )],
+        MyButton(
+          label: "+ Add Task",
+          onTap: () async {
+            await Get.to(() => AddTaskPage());
+            _taskController.getTasks();
+          },
+        )
+      ],
     );
   }
 
