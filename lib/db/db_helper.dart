@@ -29,8 +29,18 @@ class DBHelper{
        print(e);
      }
   }
+
   static Future <int> insert(Task? task) async{
-    print("insert function called");
+    print("함수를 불러옵니다.");
     return await _db?.insert(_tableName, task!.toJson())??1;
+  }
+
+  static Future<List<Map<String, dynamic>>> query() async{
+    print("쿼리 데이터를 가져옵니다.");
+    return await _db!.query(_tableName);
+  }
+
+  static delete(Task task) async {
+    await _db!.delete(_tableName,where: 'id=?',whereArgs: [task.id]);
   }
 }

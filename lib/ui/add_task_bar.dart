@@ -154,10 +154,10 @@ _getTimeFromUser(isStartTime: true);
   _validateDate(){
     if(_titleController.text.isNotEmpty&&_noteController.text.isNotEmpty){
       //DB추가
-
+      _addTaskTodb();
       Get.back();
     }else if(_titleController.text.isEmpty || _noteController.text.isEmpty){
-      Get.snackbar("Required", "All fields are required !",
+      Get.snackbar("필수", "모든 항목을 채워야합니다.",
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.white,
       icon: Icon(Icons.warning_amber_rounded),
