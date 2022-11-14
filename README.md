@@ -4,7 +4,7 @@ This is a business notification app that helps you handle your work.
 
 ## Key Point
 
-●FCM
+●FCM \
 ●메모기능
 ●BottomSheet
 ●Permission
