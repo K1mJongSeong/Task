@@ -2,15 +2,15 @@
 
 This is a business notification app that helps you handle your work.
 
-## Getting Started
+## Key Point
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+●FCM
+●메모기능
+●BottomSheet
+●Permission
+●MidiaQuery
+●sqflite 라이브러리
+●flutter_native_timezone 라이브러리(특정시간에 메세지를 표시)
+●함수의 캡슐화
+●null-check
+●조건에 따른 삼항연산자
