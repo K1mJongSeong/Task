@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
       height: task.isCompleted == 1
           ? MediaQuery.of(context).size.height * 0.24
           : //디바이스 크기에 따라 사이즈조정.
-          MediaQuery.of(context).size.height * 0.32,
+          MediaQuery.of(context).size.height * 0.4,
       color: Get.isDarkMode ? darkGreyClr : Colors.white,
       child: Column(
         children: [
@@ -111,6 +111,7 @@ class _HomePageState extends State<HomePage> {
           _bottomSheetButton(
             label: "삭제",
             onTap: () {
+              _taskController.delete(task);
               Get.back();
             },
             clr: Colors.red[300]!,
@@ -122,6 +123,7 @@ class _HomePageState extends State<HomePage> {
           _bottomSheetButton(
             label: "취소",
             onTap: () {
+
               Get.back();
             },
             clr: Colors.white!,
