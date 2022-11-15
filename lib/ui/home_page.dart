@@ -56,32 +56,52 @@ class _HomePageState extends State<HomePage> {
       return ListView.builder(
           itemCount: _taskController.taskList.length,
           itemBuilder: (_, index) {
-            print(_taskController.taskList.length);
-
-            return AnimationConfiguration.staggeredList(
-                position: index,
-                child: SlideAnimation(
-                  child: FadeInAnimation(
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            _showBottomSheet(
-                                context, _taskController.taskList[index]);
-                          },
-                          child: TaskTile(_taskController.taskList[index]),
-                        )
-                      ],
+            Task task = _taskController.taskList[index];
+            //print(task.toJson());
+            if(task.repeat=='Daily') {
+              return AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _showBottomSheet(context, task);
+                            },
+                            child: TaskTile(task),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ));
+                  ));
+            }
+            if(task.date == DateFormat.yMd().format(_selectedDate)){
+              return AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _showBottomSheet(context, task);
+                            },
+                            child: TaskTile(task),
+                          )
+                        ],
+                      ),
+                    ),
+                  ));
+            }else{
+              return Container();
+            }
           });
     }));
   }
 
   _showBottomSheet(BuildContext context, Task task) {
-    Get.bottomSheet(
-        Container(
+    Get.bottomSheet(Container(
       padding: const EdgeInsets.only(top: 4),
       height: task.isCompleted == 1
           ? MediaQuery.of(context).size.height * 0.24
@@ -103,6 +123,7 @@ class _HomePageState extends State<HomePage> {
               : _bottomSheetButton(
                   label: "완료",
                   onTap: () {
+                    _taskController.markTaskCompleted(task.id!);
                     Get.back();
                   },
                   clr: primaryClr,
@@ -112,6 +133,7 @@ class _HomePageState extends State<HomePage> {
             label: "삭제",
             onTap: () {
               _taskController.delete(task);
+              _taskController.getTasks();
               Get.back();
             },
             clr: Colors.red[300]!,
@@ -123,7 +145,6 @@ class _HomePageState extends State<HomePage> {
           _bottomSheetButton(
             label: "취소",
             onTap: () {
-
               Get.back();
             },
             clr: Colors.white!,
@@ -152,8 +173,13 @@ class _HomePageState extends State<HomePage> {
         height: 55,
         width: MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
-            border:
-                Border.all(width: 2, color: isClose == true ? Get.isDarkMode?Colors.grey[600]!:Colors.grey[300]!:clr),
+            border: Border.all(
+                width: 2,
+                color: isClose == true
+                    ? Get.isDarkMode
+                        ? Colors.grey[600]!
+                        : Colors.grey[300]!
+                    : clr),
             borderRadius: BorderRadius.circular(20),
             color: isClose == true ? Colors.transparent : clr),
         child: Center(
@@ -190,7 +216,9 @@ class _HomePageState extends State<HomePage> {
               fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey),
         ),
         onDateChange: (date) {
-          _selectedDate = date;
+          setState(() {
+            _selectedDate = date;
+          });
         },
       ),
     );
