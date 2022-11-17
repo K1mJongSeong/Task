@@ -6,6 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter/material.dart';
 import 'package:untitled/models/task.dart';
+import 'package:untitled/ui/notified_page.dart';
 
 class NotifyHelper{
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -58,7 +59,9 @@ class NotifyHelper{
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time);
+      matchDateTimeComponents: DateTimeComponents.time,
+      payload: "{$task.title}|"+"{$task.note}|"
+      );
 
     }
     
@@ -94,34 +97,11 @@ class NotifyHelper{
       } else{
         print("Notification Done");
       }
-      Get.to(()=>Container(color: Colors.white,));
+      Get.to(()=>NotifiedPage(label:payload));
     }
 
     Future onDidReceiveLocalNotification(
         int id, String? title, String? body, String? payload) async {
-      // display a dialog with the notification details, tap ok to go to another page
-      // showDialog(
-      //   //context: context,
-      //   builder: (BuildContext context) => CupertinoAlertDialog(
-      //     title: Text(title),
-      //     content: Text(body),
-      //     actions: [
-      //       CupertinoDialogAction(
-      //         isDefaultAction: true,
-      //         child: Text('Ok'),
-      //         onPressed: () async {
-      //           Navigator.of(context, rootNavigator: true).pop();
-      //           await Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //               builder: (context) => SecondScreen(payload),
-      //             ),
-      //           );
-      //         },
-      //       )
-      //     ],
-      //   ),
-      // );
       Get.dialog(Text("Welcome to flutter"));
     }
 }
