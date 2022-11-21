@@ -28,7 +28,7 @@ class NotifyHelper{
       await flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: selectNotification);
     }
 
-    Future<void> displayNotification({required String title, required String body}) async {
+    Future<void> displayNotification({required String? title, required String? body}) async {
       print("doing test");
       var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
           'your channel id', 'your channel name',channelDescription: 'your channel description',
@@ -46,11 +46,14 @@ class NotifyHelper{
     }
 
     scheduledNotification(int hour, int minutes, Task task) async {
-      int newTime = 5;
+      //int newTime = 5;
       await flutterLocalNotificationsPlugin.zonedSchedule(
           task.id!.toInt(),
           task.title,
           task.note,
+          // 0,
+          // 'asd',
+          // 'asd123123',
           _convertTime(hour, minutes),
           //tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
           const NotificationDetails(
@@ -62,7 +65,6 @@ class NotifyHelper{
       matchDateTimeComponents: DateTimeComponents.time,
       payload: "{$task.title}|"+"{$task.note}|"
       );
-
     }
     
     tz.TZDateTime _convertTime(int hour, int minutes) {
@@ -72,7 +74,6 @@ class NotifyHelper{
       if(scheduleDate.isBefore(now)){
         scheduleDate = scheduleDate.add(const Duration(days: 1));
       }
-
       return scheduleDate;
     }
 

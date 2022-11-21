@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
           itemCount: _taskController.taskList.length,
           itemBuilder: (_, index) {
             Task task = _taskController.taskList[index];
-            //print(task.toJson());
+            print(task.toJson());
             if(task.repeat=='Daily') {
               DateTime date = DateFormat.jm().parse(task.startTime.toString());
               var myTime = DateFormat("HH:mm").format(date);
@@ -220,7 +220,7 @@ class _HomePageState extends State<HomePage> {
         ),
         monthTextStyle: GoogleFonts.lato(
           textStyle: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey),
+              fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),
         ),
         onDateChange: (date) {
           setState(() {
