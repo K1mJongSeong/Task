@@ -12,7 +12,7 @@ class NotifyHelper{
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     initializeNotification() async {
-      _configureLocalTimezone();
+      //_configureLocalTimezone();
       final IOSInitializationSettings   initializationSettingsIOS =
       IOSInitializationSettings (
           requestSoundPermission: false,
@@ -41,7 +41,7 @@ class NotifyHelper{
         title,
         body,
         platformChannelSpecifics,
-        payload: 'It could be anything you pass',
+        payload: 'Default_Sound',
       );
     }
 
@@ -77,7 +77,7 @@ class NotifyHelper{
       return scheduleDate;
     }
 
-    Future<void> _configureLocalTimezone() async {
+    Future<void> _configureLocalTimezone() async { //GMT Issue.
       tz.initializeTimeZones();
       final String timeZone = await FlutterNativeTimezone.getLocalTimezone();
       tz.setLocalLocation(tz.getLocation(timeZone));
