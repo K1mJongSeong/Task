@@ -9,11 +9,13 @@ import 'package:untitled/models/task.dart';
 import 'package:untitled/ui/notified_page.dart';
 
 class NotifyHelper{
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin
+    flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
     initializeNotification() async {
-      //_configureLocalTimezone();
-      final IOSInitializationSettings   initializationSettingsIOS =
+      _configureLocalTimezone();
+      final IOSInitializationSettings initializationSettingsIOS =
       IOSInitializationSettings (
           requestSoundPermission: false,
           requestBadgePermission: false,
@@ -24,8 +26,12 @@ class NotifyHelper{
       final AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('app_icon');
       
-      final InitializationSettings initializationSettings = InitializationSettings(iOS: initializationSettingsIOS,android: initializationSettingsAndroid);
-      await flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: selectNotification);
+      final InitializationSettings initializationSettings =
+      InitializationSettings(
+          iOS: initializationSettingsIOS,
+          android: initializationSettingsAndroid);
+      await flutterLocalNotificationsPlugin.initialize(
+          initializationSettings, onSelectNotification: selectNotification);
     }
 
     Future<void> displayNotification({required String? title, required String? body}) async {
@@ -51,9 +57,6 @@ class NotifyHelper{
           task.id!.toInt(),
           task.title,
           task.note,
-          // 0,
-          // 'asd',
-          // 'asd123123',
           _convertTime(hour, minutes),
           //tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
           const NotificationDetails(

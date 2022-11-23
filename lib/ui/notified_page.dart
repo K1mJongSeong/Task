@@ -28,7 +28,7 @@ class NotifiedPage extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             color: Get.isDarkMode?Colors.white:Colors.grey[400]
           ),
-          child: Text(this.label.toString().split("|")[0],style: TextStyle(
+          child: Text(this.label.toString().split("|")[1],style: TextStyle(
               color: Get.isDarkMode?Colors.black:Colors.white,
             fontSize: 30,
           ),),
