@@ -3,7 +3,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:get/get.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:flutter/material.dart';
 import 'package:untitled/models/task.dart';
 import 'package:untitled/ui/notified_page.dart';
@@ -36,6 +36,7 @@ class NotifyHelper{
 
     Future<void> displayNotification({required String? title, required String? body}) async {
       print("doing test");
+
       var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
           'your channel id', 'your channel name',channelDescription: 'your channel description',
           importance: Importance.max, priority: Priority.high);
@@ -47,7 +48,7 @@ class NotifyHelper{
         title,
         body,
         platformChannelSpecifics,
-        payload: 'Default_Sound',
+        payload: title,
       );
     }
 
@@ -66,7 +67,7 @@ class NotifyHelper{
           uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
-      payload: "{$task.title}|"+"{$task.note}|"
+      payload: "{$task.title}"+"{$task.note}"
       );
     }
     
@@ -101,7 +102,14 @@ class NotifyHelper{
       } else{
         print("Notification Done");
       }
-      Get.to(()=>NotifiedPage(label:payload));
+
+      if(payload=="Theme Changed"){
+        print("Nothing navigate to");
+      }else{
+        Get.to(()=>NotifiedPage(label:payload));
+      }
+
+
     }
 
     Future onDidReceiveLocalNotification(
