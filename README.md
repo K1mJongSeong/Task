@@ -26,4 +26,6 @@ This is a business notification app that helps you handle your work.
 \
 ●DataTime을 Split하여 배열 0번째와 1번째 받기\
 \
-●GetX 상태관리
+●GetX 상태관리\
+\
+●TDD 테스트 주도 개발에 준수
