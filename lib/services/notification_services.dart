@@ -34,7 +34,7 @@ class NotifyHelper{
           initializationSettings, onSelectNotification: selectNotification);
     }
 
-    Future<void> displayNotification({required String? title, required String? body}) async {
+    Future<void> displayNotification({required String title, required String body}) async {
       print("doing test");
 
       var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
@@ -48,28 +48,47 @@ class NotifyHelper{
         title,
         body,
         platformChannelSpecifics,
-        payload: title,
+        payload: 'Default_Sound',
       );
     }
 
-    scheduledNotification(int hour, int minutes, Task task) async {
+    scheduledNotification() async {
       //int newTime = 5;
       await flutterLocalNotificationsPlugin.zonedSchedule(
-          task.id!.toInt(),
-          task.title,
-          task.note,
-          _convertTime(hour, minutes),
-          //tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+        0,
+          'asd',
+          'asdasdasd',
+          //_convertTime(hour, minutes),
+          tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
           const NotificationDetails(
               android: AndroidNotificationDetails('your channel id',
                   'your channel name',channelDescription: 'asd')),
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time,
-      payload: "{$task.title}"+"{$task.note}"
+      // matchDateTimeComponents: DateTimeComponents.time,
+      // payload: "{$task.title}"+"{$task.note}"
       );
     }
+
+    // scheduledNotification(int hour, int minutes, Task task) async {
+    //   //int newTime = 5;
+    //   await flutterLocalNotificationsPlugin.zonedSchedule(
+    //       task.id!.toInt(),
+    //       task.title,
+    //       task.note,
+    //       _convertTime(hour, minutes),
+    //       //tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+    //       const NotificationDetails(
+    //           android: AndroidNotificationDetails('your channel id',
+    //               'your channel name',channelDescription: 'asd')),
+    //       androidAllowWhileIdle: true,
+    //       uiLocalNotificationDateInterpretation:
+    //       UILocalNotificationDateInterpretation.absoluteTime,
+    //   matchDateTimeComponents: DateTimeComponents.time,
+    //   payload: "{$task.title}"+"{$task.note}"
+    //   );
+    // }
     
     tz.TZDateTime _convertTime(int hour, int minutes) {
       final tz.TZDateTime now = tz.TZDateTime.now(tz.local);

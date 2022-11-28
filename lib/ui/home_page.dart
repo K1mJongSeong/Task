@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:untitled/controllers/task_comtroller.dart';
+import 'package:untitled/db/db_helper.dart';
 import 'package:untitled/models/task.dart';
 import 'package:untitled/services/notification_services.dart';
 import 'package:untitled/ui/add_task_bar.dart';
@@ -23,6 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   DateTime _selectedDate = DateTime.now();
   final _taskController = Get.put(TaskController());
+  final _removeController = Get.put(DBHelper());
   var notifiHelper;
 
   @override
@@ -140,7 +142,7 @@ class _HomePageState extends State<HomePage> {
             label: "삭제",
             onTap: () {
               _taskController.delete(task);
-              _taskController.getTasks();
+              //_taskController.getTasks();
               Get.back();
             },
             clr: Colors.red[300]!,
@@ -256,6 +258,7 @@ class _HomePageState extends State<HomePage> {
           onTap: () async {
             await Get.to(() => AddTaskPage());
             _taskController.getTasks();
+            //_taskController.remove(task);
           },
         )
       ],
@@ -275,7 +278,7 @@ class _HomePageState extends State<HomePage> {
                   ? "Activated Dark Theme"
                   : "Activated Light Theme");
 
-          //notifiHelper.scheduledNotification();
+          notifiHelper.scheduledNotification();
         },
         child: Icon(
           Get.isDarkMode ? Icons.wb_sunny_outlined : Icons.nightlight_round,
