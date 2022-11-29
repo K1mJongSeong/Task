@@ -15,7 +15,8 @@ class NotifiedPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios,
           color: Get.isDarkMode?Colors.white:Colors.grey,),
         ),
-        title: Text(this.label.toString().split("|")[0],style: TextStyle(
+        title: Text(this.label.toString().split("|")[0],
+          style: TextStyle(
           color: Colors.black
         ),
         ),

@@ -24,7 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   DateTime _selectedDate = DateTime.now();
   final _taskController = Get.put(TaskController());
-  final _removeController = Get.put(DBHelper());
+  //final _removeController = Get.put(DBHelper());
   var notifiHelper;
 
   @override

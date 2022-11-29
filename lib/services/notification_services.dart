@@ -15,6 +15,7 @@ class NotifyHelper{
 
     initializeNotification() async {
       _configureLocalTimezone();
+      //tz.initializeTimeZones();
       final IOSInitializationSettings initializationSettingsIOS =
       IOSInitializationSettings (
           requestSoundPermission: false,
@@ -52,43 +53,24 @@ class NotifyHelper{
       );
     }
 
-    scheduledNotification() async {
+    scheduledNotification(int hour, int minutes, Task task) async {
       //int newTime = 5;
       await flutterLocalNotificationsPlugin.zonedSchedule(
-        0,
-          'asd',
-          'asdasdasd',
-          //_convertTime(hour, minutes),
-          tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+          task.id!.toInt(),
+          task.title.toString(),
+          task.note,
+          _convertTime(hour, minutes),
+          //tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
           const NotificationDetails(
               android: AndroidNotificationDetails('your channel id',
                   'your channel name',channelDescription: 'asd')),
           androidAllowWhileIdle: true,
           uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
-      // matchDateTimeComponents: DateTimeComponents.time,
-      // payload: "{$task.title}"+"{$task.note}"
+      matchDateTimeComponents: DateTimeComponents.time,
+      payload: "${task.title}|"+"${task.note}|"
       );
     }
-
-    // scheduledNotification(int hour, int minutes, Task task) async {
-    //   //int newTime = 5;
-    //   await flutterLocalNotificationsPlugin.zonedSchedule(
-    //       task.id!.toInt(),
-    //       task.title,
-    //       task.note,
-    //       _convertTime(hour, minutes),
-    //       //tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-    //       const NotificationDetails(
-    //           android: AndroidNotificationDetails('your channel id',
-    //               'your channel name',channelDescription: 'asd')),
-    //       androidAllowWhileIdle: true,
-    //       uiLocalNotificationDateInterpretation:
-    //       UILocalNotificationDateInterpretation.absoluteTime,
-    //   matchDateTimeComponents: DateTimeComponents.time,
-    //   payload: "{$task.title}"+"{$task.note}"
-    //   );
-    // }
     
     tz.TZDateTime _convertTime(int hour, int minutes) {
       final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
