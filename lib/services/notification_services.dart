@@ -49,7 +49,7 @@ class NotifyHelper{
         title,
         body,
         platformChannelSpecifics,
-        payload: 'Default_Sound',
+        payload: title,
       );
     }
 
@@ -105,7 +105,7 @@ class NotifyHelper{
       }
 
       if(payload=="Theme Changed"){
-        print("Nothing navigate to");
+        print("다시 시도하세요.");
       }else{
         Get.to(()=>NotifiedPage(label:payload));
       }
